@@ -4,13 +4,9 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5.0f;
     [SerializeField]  Rigidbody rb;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    private int score = 0;
+    
     void FixedUpdate()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -18,5 +14,15 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
         rb.AddForce(move * speed);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("Pickup"))
+            {
+                score++;
+                Debug.Log($"Score: {score}");
+                other.gameObject.SetActive(false);
+            }
+
     }
 }
