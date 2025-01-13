@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,15 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
         rb.AddForce(move * speed);
+    }
+
+    void Update()
+    {
+        if (health == 0)
+            {
+                Debug.Log("Game Over!");
+                SceneManager.LoadScene(this.gameObject.scene.name);
+            }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,6 +44,5 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("You win!");
         }
-
     }
 }
